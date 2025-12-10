@@ -1,59 +1,124 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Leads API - Laravel Project
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Prerequisites
 
-## About Laravel
+Before you begin, ensure you have the following installed:
+- PHP 8.2 or higher
+- Composer
+- MySQL 8.0 or higher
+- Laravel 11.x
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Installation Steps
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### 1. Clone the Repository
+```bash
+git clone <repository-url>
+cd leads-api
+```
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 2. Install Dependencies
+```bash
+composer install
 
-## Learning Laravel
+```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+### 3. Environment Setup
+```bash
+# Copy environment file
+cp .env.example .env
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+# Generate application key
+php artisan key:generate
+```
 
-## Laravel Sponsors
+### 4. Database Configuration
+Edit `.env` file and set your database credentials:
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=leads_db
+DB_USERNAME=root
+DB_PASSWORD=your_password
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 5. Run Migrations and Seeders
+```bash
+# Run migrations
+php artisan migrate
 
-### Premium Partners
+# Seed the database with initial data
+php artisan db:seed
+```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### 6. Build Frontend Assets
+```bash
+npm run build
+# or for development with hot reload
+npm run dev
+```
 
-## Contributing
+### 7. Start the Application
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-## Code of Conduct
+```bash
+php artisan serve
+```
+The application will be available at `http://localhost:8000`
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Default Credentials
 
-## Security Vulnerabilities
+After seeding, you can login with:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+**Admin User:**
+- Email: `admin@leads.app`
+- Password: `password123`
 
-## License
+**Regular User:**
+- Email: `user@leads.app`
+- Password: `password123`
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## API Documentation
+
+### Authentication
+- Login: `POST /api/login`
+- Register: `POST /api/register`
+- Logout: `POST /api/logout` (requires auth)
+
+### Leads Endpoints
+- List leads: `GET /api/leads`
+- Create lead: `POST /api/leads`
+- Show lead: `GET /api/leads/{id}`
+- Update lead: `PUT /api/leads/{id}`
+- Delete lead: `DELETE /api/leads/{id}`
+- Update status: `PUT /api/leads/{id}/status`
+- Update info: `PUT /api/leads/{id}/info`
+
+### Users Endpoints (Admin Only)
+- List users: `GET /api/users`
+- Create user: `POST /api/users`
+- Show user: `GET /api/users/{id}`
+- Update user: `PUT /api/users/{id}`
+- Delete user: `DELETE /api/users/{id}`
+
+### List of Values (LOV)
+- Provinces: `GET /api/lov/provinces`
+- Cities: `GET /api/lov/cities/{province_code}`
+- Districts: `GET /api/lov/districts/{city_code}`
+- Villages: `GET /api/lov/villages/{district_code}`
+- Products: `GET /api/lov/products`
+
+
+
+## Troubleshooting
+
+### Database Connection Issues
+- Ensure MySQL is running
+- Verify credentials in `.env`
+- Check MySQL port (default: 3306)
+
+### Permission Issues
+- Clear config cache: `php artisan config:clear`
+- Clear app cache: `php artisan cache:clear`
+- Clear routes cache: `php artisan route:clear`
+
