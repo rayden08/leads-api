@@ -108,7 +108,11 @@ After seeding, you can login with:
 - Villages: `GET /api/lov/villages/{district_code}`
 - Products: `GET /api/lov/products`
 
+## Import Postman
 
+- Open Postman
+- Import Postman Collection leads-api/postman/leads-api-postman-collection.json
+- Import Postman Environment leads-api/postman/leads-api-local.env.json
 
 ## Troubleshooting
 
